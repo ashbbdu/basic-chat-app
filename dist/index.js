@@ -12,11 +12,15 @@ app.get("/", (req, res) => {
     // res.send("App is up and running")
     res.sendFile(join(__dirname, '../index.html'));
 });
+// io.on('connection', (socket:any) => {
+//     console.log('a user connected');
+//     socket.on('chat message', (msg : string) => {
+//         console.log('message: ' + msg);
+//       });
+//   });
 io.on('connection', (socket) => {
-    // console.log(socket);
-    console.log('a user connected');
-    socket.on('disconnect', () => {
-        console.log('user disconnected');
+    socket.on('chat message', (msg) => {
+        io.emit('chat message', msg);
     });
 });
 server.listen(PORT, () => {

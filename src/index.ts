@@ -13,12 +13,15 @@ app.get("/" , (req : any , res : any) => {
     res.sendFile(join(__dirname , '../index.html'));
 })
 
-io.on('connection', (socket:any) => {
-    // console.log(socket);
-    
-    console.log('a user connected');
-    socket.on('disconnect', () => {
-      console.log('user disconnected');
+// io.on('connection', (socket:any) => {
+//     console.log('a user connected');
+//     socket.on('chat message', (msg : string) => {
+//         console.log('message: ' + msg);
+//       });
+//   });
+io.on('connection', (socket : any) => {
+    socket.on('chat message', (msg : string) => {
+      io.emit('chat message', msg);
     });
   });
 
